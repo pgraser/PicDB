@@ -4,3 +4,5 @@ obj
 deploy/
 packages/
 /PicDB/*.user
+/PicDB/my.runnsettings
+BIF-SWE2-with-tests.sln
