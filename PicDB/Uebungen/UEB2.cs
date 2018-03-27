@@ -5,6 +5,8 @@ using System.Text;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.Models;
+using PicDB.ViewModels;
 using PicDB;
 
 namespace Uebungen
@@ -17,37 +19,44 @@ namespace Uebungen
 
         public IBusinessLayer GetBusinessLayer()
         {
-            throw new NotImplementedException();
+            return new BusinessLayer();
         }
 
         public BIF.SWE2.Interfaces.ViewModels.IMainWindowViewModel GetMainWindowViewModel()
         {
-            throw new NotImplementedException();
+            return new MainWindowViewModel();
         }
 
         public BIF.SWE2.Interfaces.Models.IPictureModel GetPictureModel(string filename)
         {
-            throw new NotImplementedException();
+            PictureModel pm = new PictureModel();
+            pm.FileName = filename;
+            return pm;
         }
 
         public BIF.SWE2.Interfaces.ViewModels.IPictureViewModel GetPictureViewModel(BIF.SWE2.Interfaces.Models.IPictureModel mdl)
         {
-            throw new NotImplementedException();
+            PictureViewModel pvm = new PictureViewModel(mdl);
+            return pvm;
         }
 
         public void TestSetup(string picturePath)
         {
-            throw new NotImplementedException();
+            
         }
 
         public ICameraModel GetCameraModel(string producer, string make)
         {
-            throw new NotImplementedException();
+            CameraModel cm = new CameraModel();
+            cm.Producer = producer;
+            cm.Make = make;
+            return cm;
         }
 
         public ICameraViewModel GetCameraViewModel(ICameraModel mdl)
         {
-            throw new NotImplementedException();
+            ICameraViewModel clvm = new CameraViewModel(mdl);
+            return clvm;
         }
     }
 }
