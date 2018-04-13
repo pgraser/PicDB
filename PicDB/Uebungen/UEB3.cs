@@ -5,6 +5,7 @@ using System.Text;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.ViewModels;
 using PicDB;
+using PicDB.ViewModels;
 
 namespace Uebungen
 {
@@ -16,22 +17,26 @@ namespace Uebungen
 
         public IBusinessLayer GetBusinessLayer()
         {
-            throw new NotImplementedException();
+            BusinessLayer bl = new BusinessLayer();
+            bl.Sync();
+            return bl;
         }
 
         public void TestSetup(string picturePath)
         {
-            throw new NotImplementedException();
+            
         }
 
         public IDataAccessLayer GetDataAccessLayer()
         {
-            throw new NotImplementedException();
+            BusinessLayer bl = new BusinessLayer();
+            bl.Sync();
+            return bl.GetMockDAL();
         }
 
         public ISearchViewModel GetSearchViewModel()
         {
-            throw new NotImplementedException();
+            return new SearchViewModel();
         }
     }
 }

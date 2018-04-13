@@ -60,6 +60,7 @@
     </ApplicationDefinition>
     <Compile Include="BusinessLayer.cs" />
     <Compile Include="DataAccessLayer.cs" />
+    <Compile Include="MockDataAccessLayer.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\EXIFModel.cs" />
     <Compile Include="Models\IPTCModel.cs" />
