@@ -1,126 +1,101 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.Models;
+using BIF.SWE2.Interfaces.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.ViewModels;
 
-namespace PicDB.ViewModels
+namespace PicDB.Models
 {
     public class PhotographerViewModel : IPhotographerViewModel
     {
-        public PhotographerViewModel()
+        public PhotographerViewModel(IPhotographerModel mdl)
         {
-
+            FirstName = mdl.FirstName;
+            LastName = mdl.LastName;
+            BirthDay = mdl.BirthDay;
         }
 
+        public PhotographerViewModel() { }
 
-        private DateTime? _BirthDay;
-        public DateTime? BirthDay
-        {
-            get
-            {
-                return _BirthDay;
-            }
+        public int ID { get; set; }
 
-            set
-            {
-                _BirthDay = value;
-            }
-        }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime? BirthDay { get; set; }
+        public string Notes { get; set; }
 
-        private string _FirstName;
-        public string FirstName
-        {
-            get
-            {
-                return _FirstName;
-            }
+        public int NumberOfPictures { get; set; }
 
-            set
-            {
-                _FirstName = value;
-            }
-        }
-
-        private int _ID;
-        public int ID
-        {
-            get
-            {
-                return _ID;
-            }
-        }
-
-        private bool _IsValid;
         public bool IsValid
         {
             get
             {
-                return _IsValid;
+                if(IsValidLastName && IsValidBirthDay)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
-        private bool _IsValidBirthday;
-        public bool IsValidBirthDay
-        {
-            get
-            {
-                return _IsValidBirthday;
-            }
-        }
-
-        private bool _IsValidLastName;
-        public bool IsValidLastName
-        {
-            get
-            {
-                return _IsValidLastName;
-            }
-        }
-
-        private string _LastName;
-        public string LastName
-        {
-            get
-            {
-                return _LastName;
-            }
-
-            set
-            {
-                _LastName = value;
-            }
-        }
-
-        private string _Notes;
-        public string Notes
-        {
-            get
-            {
-                return _Notes;
-            }
-
-            set
-            {
-                _Notes = value;
-            }
-        }
-
-        private int _NumberOfPictures;
-        public int NumberOfPictures
-        {
-            get
-            {
-                return _NumberOfPictures;
-            }
-        }
-
-        private string _ValidationSummary;
         public string ValidationSummary
         {
             get
             {
-                return _ValidationSummary;
+                if (IsValid)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    if (!IsValidBirthDay)
+                    {
+                        sb.Append("BirthDay is not valid.");
+                    }
+
+                    if (!IsValidLastName)
+                    {
+                        sb.Append("LastName is not valid.");
+                    }
+
+                    return sb.ToString();
+                }
+            }
+        }
+
+        public bool IsValidLastName
+        {
+            get
+            {
+                if(LastName == null || LastName == string.Empty)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public bool IsValidBirthDay
+        {
+            get
+            {
+                if(BirthDay > DateTime.Now)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
         }
     }

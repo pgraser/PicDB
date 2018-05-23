@@ -6,6 +6,7 @@ using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.ViewModels;
 using PicDB;
 using PicDB.ViewModels;
+using PicDB.Models;
 
 namespace Uebungen
 {

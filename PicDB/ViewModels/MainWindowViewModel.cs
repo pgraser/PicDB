@@ -1,38 +1,18 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.ViewModels;
 
-namespace PicDB.ViewModels
+namespace PicDB.Models
 {
-    class MainWindowViewModel : IMainWindowViewModel
+    public class MainWindowViewModel : IMainWindowViewModel
     {
-        private IPictureViewModel _CurrentPicture = new PictureViewModel();
-        public IPictureViewModel CurrentPicture
-        {
-            get
-            {
-                return _CurrentPicture;
-            }
-        }
+        public IPictureViewModel CurrentPicture => new PictureViewModel();
 
-        private IPictureListViewModel _List = new PictureListViewModel();
-        public IPictureListViewModel List
-        {
-            get
-            {
-                return _List;
-            }
-        }
+        public IPictureListViewModel List => new PictureListViewModel();
 
-        private ISearchViewModel _Search = new SearchViewModel();
-        public ISearchViewModel Search
-        {
-            get
-            {
-                return _Search;
-            }
-        }
+        public ISearchViewModel Search => new SearchViewModel();
     }
 }

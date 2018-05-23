@@ -6,7 +6,7 @@ using BIF.SWE2.Interfaces.ViewModels;
 
 namespace PicDB.ViewModels
 {
-    class PhotographerListViewModel : IPhotographerListViewModel
+    public class PhotographerListViewModel : IPhotographerListViewModel
     {
         public IPhotographerViewModel CurrentPhotographer
         {

@@ -7,8 +7,21 @@ using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
-    class CameraModel : ICameraModel
+    public class CameraModel : ICameraModel
     {
+
+
+        public CameraModel()
+        {
+            
+        }
+
+        public CameraModel(string producer, string make)
+        {
+            Producer = producer;
+            Make = make;
+        }
+
         private DateTime? _BroughtOn;
         public DateTime? BoughtOn
         {
@@ -94,6 +107,7 @@ namespace PicDB.Models
         }
 
         private string _Producer;
+
         public string Producer
         {
             get

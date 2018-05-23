@@ -1,100 +1,44 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.Models;
+using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.ViewModels;
-using BIF.SWE2.Interfaces.Models;
 
-using PicDB.Models;
-
-namespace PicDB.ViewModels
+namespace PicDB.Models
 {
-    public class PictureViewModel : IPictureViewModel
+    public class PictureViewModel : MainWindowViewModel, IPictureViewModel
     {
-        public PictureViewModel()
-        {
-        }
+        public PictureViewModel() { }
 
-        public PictureViewModel(IPictureModel pm)
+        public PictureViewModel(IPictureModel model)
         {
-            _FileName = pm.FileName;
-        }
-
-        private CameraViewModel _Camera = new CameraViewModel();
-        public ICameraViewModel Camera
-        {
-            get
+            if (model != null)
             {
-                return _Camera;
+                FileName = model.FileName;
+
+                string name = model.FileName;
+                string by = model.IPTC.ByLine;
+
+                DisplayName = name + " (by " + by + ")";
             }
         }
 
-        private string _DisplayName;
-        public string DisplayName
-        {
-            get
-            {
-                if (_DisplayName == null)
-                {
-                    _DisplayName = (FileName + " (by " + _Photographer.FirstName + " " + _Photographer.LastName + ")");
-                }
+        public int ID { get { throw new NotImplementedException(); } }
 
-                return _DisplayName;
-            }
-        }
+        public string FileName { get; set; }
 
-        private IEXIFViewModel _EXIF = new EXIFViewModel();
-        public IEXIFViewModel EXIF
-        {
-            get
-            {
-                return _EXIF;
-            }
-        }
+        public string FilePath { get { throw new NotImplementedException(); } }
 
-        private string _FileName;
-        public string FileName
-        {
-            get
-            {
-                return _FileName;
-            }
-        }
+        public string DisplayName { get; set; }
 
-        private string _FilePath;
-        public string FilePath
-        {
-            get
-            {
-                return _FilePath;
-            }
-        }
+        public IIPTCViewModel IPTC => new IPTCViewModel();
 
-        public int _ID;
-        public int ID
-        {
-            get
-            {
-                return _ID;
-            }
-        }
+        public IEXIFViewModel EXIF => new EXIFViewModel();
 
-        private IIPTCViewModel _IPTC = new IPTCViewModel();
-        public IIPTCViewModel IPTC
-        {
-            get
-            {
-                return _IPTC;
-            }
-        }
+        public IPhotographerViewModel Photographer { get { throw new NotImplementedException(); } }
 
-        private PhotographerViewModel _Photographer = new PhotographerViewModel();
-        public IPhotographerViewModel Photographer
-        {
-            get
-            {
-                return _Photographer;
-            }
-        }
+        public ICameraViewModel Camera => new CameraViewModel();
     }
 }

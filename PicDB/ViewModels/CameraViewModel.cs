@@ -18,155 +18,142 @@ namespace PicDB.ViewModels
 
         public CameraViewModel(ICameraModel cm)
         {
-            _Producer = cm.Producer;
-            _Make = cm.Make;
+            Producer = cm.Producer;
+            Make = cm.Make;
+            ISOLimitAcceptable = cm.ISOLimitAcceptable;
+            ISOLimitGood = cm.ISOLimitGood;
         }
 
-        private DateTime? _Boughton;
         public DateTime? BoughtOn
         {
-            get
-            {
-                return _Boughton;
-            }
-
-            set
-            {
-                _Boughton = value;
-            }
+            get; set;
         }
 
-        private int _ID;
         public int ID
         {
-            get
-            {
-                return _ID;
-            }
+            get;
         }
 
-        private decimal _ISOLimitAcceptable;
         public decimal ISOLimitAcceptable
         {
-            get
-            {
-                return _ISOLimitAcceptable;
-            }
-
-            set
-            {
-                _ISOLimitAcceptable = value;
-            }
+            get; set;
         }
 
-        private decimal _ISOLimitGood;
         public decimal ISOLimitGood
         {
-            get
-            {
-                return _ISOLimitGood;
-            }
-
-            set
-            {
-                _ISOLimitGood = value;
-            }
+            get; set;
         }
 
-        private bool _IsValid;
         public bool IsValid
         {
             get
             {
-                return _IsValid;
+                if (IsValidBoughtOn && IsValidMake && IsValidProducer)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
-        private bool _IsValidBoughton;
-        public bool IsValidBoughtOn
-        {
-            get
-            {
-                return _IsValidBoughton;
-            }
-        }
-
-        private bool _IsValidMake;
-        public bool IsValidMake
-        {
-            get
-            {
-                return IsValidMake;
-            }
-        }
-
-        private bool _IsValidProducer;
-        public bool IsValidProducer
-        {
-            get
-            {
-                return _IsValidProducer;
-            }
-        }
-
-        private string _Make;
-        public string Make
-        {
-            get
-            {
-                return _Make;
-            }
-
-            set
-            {
-                _Make = value;
-            }
-        }
-
-        private string _Notes;
-        public string Notes
-        {
-            get
-            {
-                return _Notes;
-            }
-
-            set
-            {
-                _Notes = value;
-            }
-        }
-
-        private int _NumberOfPictures;
-        public int NumberOfPictures
-        {
-            get
-            {
-                return _NumberOfPictures;
-            }
-        }
-
-        private string _Producer;
-        public string Producer
-        {
-            get
-            {
-                return _Producer;
-            }
-
-            set
-            {
-                _Producer = value;
-            }
-        }
-
-        private string _ValidationSummary;
         public string ValidationSummary
         {
             get
             {
-                return _ValidationSummary;
+                if (IsValid)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    if (!IsValidBoughtOn)
+                    {
+                        sb.AppendLine("BoughtOn date is not valid.");
+                    }
+
+                    if (!IsValidMake)
+                    {
+                        sb.AppendLine("Make is not valid.");
+                    }
+
+                    if (!IsValidProducer)
+                    {
+                        sb.AppendLine("Producer is not valid.");
+                    }
+
+                    return sb.ToString();
+                }
             }
+        }
+
+        public bool IsValidProducer
+        {
+            get
+            {
+                if (Producer == null || Producer == string.Empty)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public bool IsValidMake
+        {
+            get
+            {
+                if (Make == null || Make == string.Empty)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public bool IsValidBoughtOn
+        {
+            get
+            {
+                if (BoughtOn > DateTime.Now)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public string Make
+        {
+            get; set;
+        }
+
+        public string Notes
+        {
+            get; set;
+        }
+
+        public int NumberOfPictures
+        {
+            get;
+        }
+
+        public string Producer
+        {
+            get; set;
         }
 
         public ISORatings TranslateISORating(decimal iso)

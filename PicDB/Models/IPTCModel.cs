@@ -1,76 +1,26 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
-    class IPTCModel : IIPTCModel
+    public class IPTCModel : IIPTCModel
     {
-        public string ByLine
+        public IPTCModel()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            ByLine = " not set";
+            Keywords = " not set";
+            CopyrightNotice = " not set";
+            Headline = " not set";
+            Caption = " not set";
         }
 
-        public string Caption
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string CopyrightNotice
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Headline
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Keywords
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Keywords { get; set; }
+        public string ByLine { get; set; }
+        public string CopyrightNotice { get; set; }
+        public string Headline { get; set; }
+        public string Caption { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using BIF.SWE2.Interfaces.ViewModels;
 
 namespace PicDB.ViewModels
 {
-    class PictureListViewModel : IPictureListViewModel
+    public class PictureListViewModel : IPictureListViewModel
     {
         public int Count
         {

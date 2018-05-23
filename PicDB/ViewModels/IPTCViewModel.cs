@@ -1,84 +1,37 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.Models;
+using BIF.SWE2.Interfaces.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.ViewModels;
 
-namespace PicDB.ViewModels
+namespace PicDB.Models
 {
-    class IPTCViewModel : IIPTCViewModel
+    public class IPTCViewModel : IIPTCViewModel
     {
-        public string ByLine
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public IPTCViewModel() { }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+        public IPTCViewModel(IIPTCModel model)
+        {
+            Keywords = model.Keywords;
+            ByLine = model.ByLine;
+            CopyrightNotice = model.CopyrightNotice;
+            Headline = model.Headline;
+            Caption = model.Caption;
+
+            CopyrightNotices = new List<string>();
+            ((List<string>)CopyrightNotices).Add("All rights reserved.");
+            ((List<string>)CopyrightNotices).Add("CC-BY");
+            ((List<string>)CopyrightNotices).Add("CC-BY-SA");
         }
 
-        public string Caption
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public string Keywords { get; set; }
+        public string ByLine { get; set; }
+        public string CopyrightNotice { get; set; }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public IEnumerable<string> CopyrightNotices { get; set; }
 
-        public string CopyrightNotice
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<string> CopyrightNotices
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Headline
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Keywords
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string Headline { get; set; }
+        public string Caption { get; set; }
     }
 }

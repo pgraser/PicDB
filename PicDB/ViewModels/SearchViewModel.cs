@@ -1,43 +1,27 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.ViewModels;
 
-namespace PicDB.ViewModels 
+namespace PicDB.Models
 {
-    public class SearchViewModel : ISearchViewModel
+    public class SearchViewModel : MainWindowViewModel, ISearchViewModel
     {
+        public string SearchText { get; set; }
 
         public bool IsActive
         {
             get
             {
-                if (SearchText == null || SearchText.Equals(string.Empty)) return false;
+                if (SearchText == null || SearchText.Equals(string.Empty))
+                {
+                    return false;
+                }
                 return true;
             }
         }
 
-        public int ResultCount
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        private string _SearchText;
-        public string SearchText
-        {
-            get
-            {
-                return _SearchText;
-            }
-
-            set
-            {
-                _SearchText = value;
-            }
-        }
+        public int ResultCount { get { throw new NotImplementedException(); } }
     }
 }
