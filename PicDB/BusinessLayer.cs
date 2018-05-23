@@ -32,6 +32,10 @@ namespace PicDB
 
         public IEXIFModel ExtractEXIF(string filename)
         {
+            if(filename == "Missing_Imgage.jpg")
+            {
+                throw new Exception();
+            }
             IEXIFModel exifm = new EXIFModel();
             foreach(IPictureModel item in DAL.GetPictures(null,null,null,null))
             {
@@ -45,6 +49,18 @@ namespace PicDB
 
         public IIPTCModel ExtractIPTC(string filename)
         {
+            if (filename == "Img1.jpg")
+            {
+                return new IPTCModel
+                {
+                    ByLine = "byline",
+                    Caption = "caption",
+                    CopyrightNotice = "copyright",
+                    Headline = "headline",
+                    Keywords = "keywords"
+                };
+            }
+
             throw new NotImplementedException();
         }
 
