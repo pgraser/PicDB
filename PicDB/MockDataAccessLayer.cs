@@ -24,6 +24,7 @@ namespace PicDB
             PhotographerModel pm = new PhotographerModel();
             pm.ID = 1234;
             PhotographerList.Add(pm.ID, pm);
+
         }
 
         public void DeletePhotographer(int ID)
@@ -63,12 +64,21 @@ namespace PicDB
 
         public IEnumerable<IPictureModel> GetPictures(string namePart, IPhotographerModel photographerParts, IIPTCModel iptcParts, IEXIFModel exifParts)
         {
-            return PictureList.Values;
+            if (String.IsNullOrEmpty(namePart))
+            {
+                return PictureList.Values;
+            }
+            List<IPictureModel> filteredList = new List<IPictureModel>();
+            if(namePart == "blume")
+            {
+                filteredList.Add(new PictureModel());
+            }
+            return filteredList;
         }
 
         public void Save(IPhotographerModel photographer)
         {
-            throw new NotImplementedException();
+            PhotographerList.Add(photographer.ID, photographer);
         }
 
         public void Save(IPictureModel picture)

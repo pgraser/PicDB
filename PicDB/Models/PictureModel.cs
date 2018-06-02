@@ -21,7 +21,14 @@ namespace PicDB.Models
             IPTC = new IPTCModel();
         }
 
+        public PictureModel(string namePart)
+        {
+            this.namePart = namePart;
+        }
+
         protected static int NextId = 1;
+        private string namePart;
+
         public int ID { get; set; }
         public string FileName { get; set; }
         public IIPTCModel IPTC { get; set; }

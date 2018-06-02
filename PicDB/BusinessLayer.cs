@@ -101,12 +101,12 @@ namespace PicDB
 
         public void Save(IPhotographerModel photographer)
         {
-            throw new NotImplementedException();
+            DAL.Save(photographer);
         }
 
         public void Save(IPictureModel picture)
         {
-            throw new NotImplementedException();
+            DAL.Save(picture);
         }
 
         public void Sync()

@@ -95,7 +95,7 @@ namespace PicDB.ViewModels
         {
             get
             {
-                if (Producer == null || Producer == string.Empty)
+                if (String.IsNullOrEmpty(Producer))
                 {
                     return false;
                 }
@@ -110,7 +110,7 @@ namespace PicDB.ViewModels
         {
             get
             {
-                if (Make == null || Make == string.Empty)
+                if (String.IsNullOrEmpty(Make))
                 {
                     return false;
                 }
