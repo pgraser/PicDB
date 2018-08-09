@@ -164,6 +164,33 @@ namespace PicDB
 
                     // Change parameter values and call ExecuteNonQuery.
                     command.ExecuteScalar();
+
+                    var pictureModel = (PictureModel)picture;
+
+                    //Wenn ein Photographer hinzugefügt wird, soll diese auch auf die richtige ID gesetzt werden
+                    if (pictureModel.Photographer != null)
+                    {
+                        command.CommandText = "Update dbo.PictureModel SET fk_Photographer = @fk_photo WHERE ID = @id";
+                        var paramCamID = new SqlParameter("@fk_photo", SqlDbType.Int) { Value = pictureModel.Photographer.ID };
+
+                        command.Parameters.Add(paramCamID);
+                        command.Prepare();
+                        command.ExecuteScalar();
+
+                    }
+
+                    //Wenn eine Camera hinzugefügt wird zum Bild, soll diese auch auf die richtige ID gesetzt werden
+                    if (pictureModel.Camera != null)
+                    {
+
+                        command.CommandText = "Update dbo.PictureModel SET fk_Camera = @fk_Cam WHERE ID = @id";
+                        var paramCamID = new SqlParameter("@fk_Cam", SqlDbType.Int) { Value = pictureModel.Camera.ID };
+
+                        command.Parameters.Add(paramCamID);
+                        command.Prepare();
+                        command.ExecuteScalar();
+                    }
+
                     connection.Close();
                 }
             }
@@ -199,7 +226,7 @@ namespace PicDB
                     //Insert PictureModel
                     var command = new SqlCommand(null, connection)
                     {
-                        CommandText = "INSERT INTO dbo.PictureModel(FileName, fk_IPTC, fk_EXIF) "
+                        CommandText = "INSERT INTO dbo.PictureModel(FileName, fk_IPTC, fk_EXIF)"
                                       + "VALUES(@filename, @fkiptc, @fkexif);"
                     };
 

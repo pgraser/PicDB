@@ -54,6 +54,10 @@ namespace PicDB.Models
 
         public ISearchViewModel Search { get; set; } = new SearchViewModel();
 
+        public ICameraListViewModel CameraList { get; set; } = new CameraListViewModel();
+
+        public IPhotographerListViewModel PhotographerList { get; set; } = new PhotographerListViewModel();
+
         public MainWindowViewModel()
         {
             CurrentPicture = List.CurrentPicture;
@@ -64,6 +68,15 @@ namespace PicDB.Models
         {
             _businessLayer.Save(new PictureModel(CurrentPicture));
         }
+
+        internal void SaveGeneralInformation(CameraViewModel cameraViewmodel, PhotographerViewModel photographerViewModel)
+        {
+            ((PictureViewModel)CurrentPicture).Camera = cameraViewmodel;
+            ((PictureViewModel)CurrentPicture).Photographer = photographerViewModel;
+            SaveCurrentPicture();
+        }
+
+
 
         //public ObservableCollection<> CreatePictureViewModelCollection()
     }

@@ -28,6 +28,8 @@ namespace PicDB.ViewModels
             {
                 _list.Add(new PictureViewModel((PictureModel)model));
             }
+            _backupList = new ObservableCollection<IPictureViewModel>(_list);
+
             int firstModelID = _list.First().ID;
             CurrentPicture = new PictureViewModel(bl.GetPicture(firstModelID));
         }
@@ -56,6 +58,7 @@ namespace PicDB.ViewModels
             }
         }
 
+        private ObservableCollection<IPictureViewModel> _backupList;
         private ObservableCollection<IPictureViewModel> _list = new ObservableCollection<IPictureViewModel>();
 
         public IEnumerable<IPictureViewModel> List
@@ -66,6 +69,11 @@ namespace PicDB.ViewModels
                 _list = (ObservableCollection<IPictureViewModel>)value;
                 NotifyPropertyChanged("List");
             }
+        }
+
+        public void ResetList()
+        {
+            _list = new ObservableCollection<IPictureViewModel>(_backupList);
         }
     }
 }
