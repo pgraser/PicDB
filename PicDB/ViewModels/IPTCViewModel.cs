@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PicDB.Models
 {
-    public class IPTCViewModel : IIPTCViewModel
+    class IPTCViewModel : IIPTCViewModel
     {
         public IPTCViewModel() { }
 
@@ -18,18 +18,24 @@ namespace PicDB.Models
             CopyrightNotice = model.CopyrightNotice;
             Headline = model.Headline;
             Caption = model.Caption;
-
-            CopyrightNotices = new List<string>();
-            ((List<string>)CopyrightNotices).Add("All rights reserved.");
-            ((List<string>)CopyrightNotices).Add("CC-BY");
-            ((List<string>)CopyrightNotices).Add("CC-BY-SA");
         }
 
         public string Keywords { get; set; }
         public string ByLine { get; set; }
         public string CopyrightNotice { get; set; }
 
-        public IEnumerable<string> CopyrightNotices { get; set; }
+        private static readonly IEnumerable<string> _copyrightNotices = new List<string>()
+        {
+            "All rights reserved",
+            "CC - BY",
+            "CC - BY - SA",
+            "CC - BY - ND",
+            "CC - BY - NC",
+            "CC - BY - NC - SA",
+            "CC - BY - NC - ND",
+        };
+
+        public IEnumerable<string> CopyrightNotices => _copyrightNotices;
 
         public string Headline { get; set; }
         public string Caption { get; set; }

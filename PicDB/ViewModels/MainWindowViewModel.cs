@@ -1,18 +1,70 @@
 ﻿using BIF.SWE2.Interfaces.ViewModels;
-using PicDB.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using PicDB.ViewModels;
+using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
-    public class MainWindowViewModel : IMainWindowViewModel
+    class MainWindowViewModel : ViewModelNotifier, IMainWindowViewModel
     {
-        public IPictureViewModel CurrentPicture => new PictureViewModel();
+        private readonly BusinessLayer _businessLayer = new BusinessLayer();
 
-        public IPictureListViewModel List => new PictureListViewModel();
+        private IPictureViewModel _currentPicture;
+        public IPictureViewModel CurrentPicture
+        {
+            get => _currentPicture;
+            set
+            {
+                if (_currentPicture != value && value != null)
+                {
+                    _currentPicture = new PictureViewModel(_businessLayer.GetPicture(value.ID));
+                    ((PictureListViewModel) List).CurrentPicture = _currentPicture;
+                    Title = "PicDB - " + _currentPicture.DisplayName;
+                    NotifyPropertyChanged(nameof(CurrentPicture));
+                }
+            }
+        }
 
-        public ISearchViewModel Search => new SearchViewModel();
+        private string _title;
+        public string Title
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_title))
+                {
+                    return "PicDB";
+                }
+                return _title;
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _title = value;
+                    NotifyPropertyChanged(nameof(Title));
+                }
+            }
+        }
+
+        public IPictureListViewModel List { get; set; } = new PictureListViewModel();
+
+        public ISearchViewModel Search { get; set; } = new SearchViewModel();
+
+        public MainWindowViewModel()
+        {
+            CurrentPicture = List.CurrentPicture;
+            Title = "PicDB - " + CurrentPicture.DisplayName;
+        }
+
+        public void SaveCurrentPicture()
+        {
+            _businessLayer.Save(new PictureModel(CurrentPicture));
+        }
+
+        //public ObservableCollection<> CreatePictureViewModelCollection()
     }
 }

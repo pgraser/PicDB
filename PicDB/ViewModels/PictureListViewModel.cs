@@ -1,66 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.Models;
 
 namespace PicDB.ViewModels
 {
-    public class PictureListViewModel : IPictureListViewModel
+    class PictureListViewModel : ViewModelNotifier, IPictureListViewModel
     {
-        public int Count
+        private BusinessLayer bl;
+
+        public PictureListViewModel()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            bl = new BusinessLayer();
+            SyncAndUpdatePictureList();
         }
 
-        public int CurrentIndex
+        public void SyncAndUpdatePictureList()
         {
-            get
+            bl.Sync();
+            var pictures = bl.GetPictures();
+            CurrentPicture = null;
+            _list.Clear();
+            foreach (IPictureModel model in pictures)
             {
-                throw new NotImplementedException();
+                _list.Add(new PictureViewModel((PictureModel)model));
             }
+            int firstModelID = _list.First().ID;
+            CurrentPicture = new PictureViewModel(bl.GetPicture(firstModelID));
         }
 
+        public IEnumerable<IPictureViewModel> PrevPictures { get; set; }
+
+        public IEnumerable<IPictureViewModel> NextPictures { get; set; }
+
+        public int Count { get; set; }
+
+        public int CurrentIndex { get; set; }
+
+        public string CurrentPictureAsString { get; set; }
+
+        private IPictureViewModel _currentPicture;
         public IPictureViewModel CurrentPicture
         {
-            get
+            get => _currentPicture;
+            set
             {
-                throw new NotImplementedException();
+                if (_currentPicture != value)
+                {
+                    _currentPicture = value;
+                    NotifyPropertyChanged(nameof(CurrentPicture));
+                }
             }
         }
 
-        public string CurrentPictureAsString
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        private ObservableCollection<IPictureViewModel> _list = new ObservableCollection<IPictureViewModel>();
 
         public IEnumerable<IPictureViewModel> List
         {
-            get
+            get => _list;
+            set
             {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<IPictureViewModel> NextPictures
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<IPictureViewModel> PrevPictures
-        {
-            get
-            {
-                throw new NotImplementedException();
+                _list = (ObservableCollection<IPictureViewModel>)value;
+                NotifyPropertyChanged("List");
             }
         }
     }

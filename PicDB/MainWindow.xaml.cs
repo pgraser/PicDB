@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BIF.SWE2.Interfaces.Models;
+using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.Models;
+using System.Windows.Forms;
+using PicDB.ViewModels;
+using MessageBox = System.Windows.MessageBox;
 
 namespace PicDB
 {
@@ -19,9 +26,87 @@ namespace PicDB
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel _controller;
+
         public MainWindow()
         {
+            _controller = new MainWindowViewModel();
             InitializeComponent();
+            this.DataContext = _controller;
+            
+        }
+
+        private void BtnSaveIPTC_Click(object sender, RoutedEventArgs e)
+        {
+            IPictureViewModel currentPicture = _controller.CurrentPicture;
+
+            currentPicture.IPTC.Keywords = UI_IPTC_Keywords.Text;
+            currentPicture.IPTC.ByLine = UI_IPTC_ByLine.Text;
+            currentPicture.IPTC.CopyrightNotice = UI_IPTC_CopyrightNotice.Text;
+            currentPicture.IPTC.Headline = UI_IPTC_Headline.Text;
+            currentPicture.IPTC.Caption = UI_IPTC_Caption.Text;
+
+            _controller.SaveCurrentPicture();
+        }
+
+        private void PictureSelection_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (PictureSelection.SelectedItem is PictureViewModel)
+            {
+                if (((PictureViewModel)PictureSelection.SelectedItem) == null)
+                {
+                    MessageBox.Show("Des is null, aide");
+                }
+                else
+                {
+                    _controller.CurrentPicture = (PictureViewModel)PictureSelection.SelectedItem;
+                }
+
+                
+            }
+
+        }
+
+        public void MenuOptionChangeHomeFolder_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = GlobalInformation.Path;
+            fbd.ShowDialog();
+
+            //if the path changed, overwrite config file and load pictures of the new folder
+            if (fbd.SelectedPath != GlobalInformation.Path)
+            {
+                var oldLines = System.IO.File.ReadAllLines("config.txt");
+                List<string> newLines = new List<string>();
+                foreach (var line in oldLines)
+                {
+                    if (line.Contains("path,"))
+                    {
+                        string addLine = "path," + fbd.SelectedPath + "\\";
+                        newLines.Add(addLine);
+                    }
+                    else
+                    {
+                        newLines.Add(line);
+                    }
+                }
+                System.IO.File.WriteAllLines("config.txt", newLines);
+                GlobalInformation.ReadConfigFile();
+                ((PictureListViewModel)_controller.List).SyncAndUpdatePictureList();
+            }
+        }
+        
+
+        /// <summary>
+        /// TO MAYBO DO
+        /// </summary>
+        private void ValidateIPTC()
+        {
+            string Keywords = UI_IPTC_Keywords.Text;
+            string ByLine = UI_IPTC_ByLine.Text;
+            string CopyrightNotice = UI_IPTC_CopyrightNotice.Text;
+            string Headline = UI_IPTC_Headline.Text;
+            string Caption = UI_IPTC_Caption.Text;
         }
     }
 }

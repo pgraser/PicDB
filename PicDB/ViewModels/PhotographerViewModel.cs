@@ -7,10 +7,11 @@ using System.Text;
 
 namespace PicDB.Models
 {
-    public class PhotographerViewModel : IPhotographerViewModel
+    class PhotographerViewModel : PhotographerListViewModel, IPhotographerViewModel
     {
         public PhotographerViewModel(IPhotographerModel mdl)
         {
+            if (mdl == null) return;
             FirstName = mdl.FirstName;
             LastName = mdl.LastName;
             BirthDay = mdl.BirthDay;
@@ -31,7 +32,7 @@ namespace PicDB.Models
         {
             get
             {
-                if(IsValidLastName && IsValidBirthDay)
+                if (IsValidLastName && IsValidBirthDay)
                 {
                     return true;
                 }
@@ -73,7 +74,7 @@ namespace PicDB.Models
         {
             get
             {
-                if(LastName == null || LastName == string.Empty)
+                if (LastName == null || LastName == string.Empty)
                 {
                     return false;
                 }
@@ -88,7 +89,7 @@ namespace PicDB.Models
         {
             get
             {
-                if(BirthDay > DateTime.Now)
+                if (BirthDay > DateTime.Now)
                 {
                     return false;
                 }

@@ -42,7 +42,7 @@ namespace Uebungen
 
         public void TestSetup(string picturePath)
         {
-            BusinessLayer.PicturePath = picturePath;
+            GlobalInformation.Path = picturePath;
         }
 
         public ICameraModel GetCameraModel(string producer, string make)

@@ -8,7 +8,7 @@ using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
-    public class EXIFViewModel : IEXIFViewModel
+    class EXIFViewModel : IEXIFViewModel
     {
         public EXIFViewModel() { }
 
@@ -20,7 +20,8 @@ namespace PicDB.Models
             ISOValue = model.ISOValue;
             Flash = model.Flash;
             ExposureProgram = model.ExposureProgram.ToString();
-            ExposureProgramResource = "Something";
+            ExposureProgramResource = "I have no idea what this is";
+            // ?????
         }
 
         public string Make { get; set; }
@@ -43,15 +44,20 @@ namespace PicDB.Models
         {
             get
             {
-                if(ISOValue > 0 && ISOValue <= 400)
+                if (Camera == null)
+                {
+                    return ISORatings.NotDefined;
+                }
+
+                if (ISOValue > 0 && ISOValue <= Camera.ISOLimitGood)
                 {
                     return ISORatings.Good;
                 }
-                else if(ISOValue > 400 && ISOValue <= 800)
+                else if (ISOValue > Camera.ISOLimitGood && ISOValue <= Camera.ISOLimitAcceptable)
                 {
                     return ISORatings.Acceptable;
                 }
-                else if(ISOValue > 800 && ISOValue <= 1600)
+                else if (ISOValue > Camera.ISOLimitAcceptable && ISOValue <= 1600)
                 {
                     return ISORatings.Noisey;
                 }
@@ -59,10 +65,6 @@ namespace PicDB.Models
                 {
                     return ISORatings.NotDefined;
                 }
-            }
-            set
-            {
-                ISORating = value;
             }
         }
 

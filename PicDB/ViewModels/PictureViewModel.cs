@@ -8,37 +8,47 @@ using System.Text;
 
 namespace PicDB.Models
 {
-    public class PictureViewModel : MainWindowViewModel, IPictureViewModel
+    class PictureViewModel : ViewModelNotifier, IPictureViewModel
     {
         public PictureViewModel() { }
 
         public PictureViewModel(IPictureModel model)
         {
+
+            if (model is PictureModel)
+            {
+                IPTC = new IPTCViewModel(model.IPTC);
+                EXIF = new EXIFViewModel(model.EXIF);
+                Photographer = new PhotographerViewModel(((PictureModel)model).Photographer);
+                Camera = new CameraViewModel(model.Camera);
+            }
+
             if (model != null)
             {
+                ID = model.ID;
                 FileName = model.FileName;
-
+                FilePath = GlobalInformation.Path + "\\" + FileName;
+                DisplayName = FileName.Split('.')[0];
                 string name = model.FileName;
                 string by = model.IPTC.ByLine;
-
-                DisplayName = name + " (by " + by + ")";
+                DisplayName = name + " (by " + Photographer.FirstName + " " + Photographer.LastName + ")";
             }
         }
 
-        public int ID { get { throw new NotImplementedException(); } }
+        public int ID { get; set; }
 
         public string FileName { get; set; }
 
-        public string FilePath { get { throw new NotImplementedException(); } }
+        public string FilePath { get; set; }
 
         public string DisplayName { get; set; }
 
-        public IIPTCViewModel IPTC => new IPTCViewModel();
+        public IIPTCViewModel IPTC { get; set; }
 
-        public IEXIFViewModel EXIF => new EXIFViewModel();
+        public IEXIFViewModel EXIF { get; set; }
 
-        public IPhotographerViewModel Photographer { get { throw new NotImplementedException(); } }
+        public IPhotographerViewModel Photographer { get; set; }
 
-        public ICameraViewModel Camera => new CameraViewModel();
+        public ICameraViewModel Camera { get; set; }
     }
 }

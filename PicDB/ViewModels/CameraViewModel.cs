@@ -1,48 +1,36 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BIF.SWE2.Interfaces;
-using BIF.SWE2.Interfaces.ViewModels;
-using BIF.SWE2.Interfaces.Models;
 using PicDB.Models;
+using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.ViewModels
 {
     class CameraViewModel : ICameraViewModel
     {
-        public CameraViewModel()
-        {
+        public CameraViewModel() { }
 
+        public CameraViewModel(ICameraModel model)
+        {
+            if (model == null) return;
+            ID = model.ID;
+            Producer = model.Producer;
+            Make = model.Make;
+            ISOLimitGood = model.ISOLimitGood;
+            ISOLimitAcceptable = model.ISOLimitAcceptable;
+            Notes = model.Notes;
         }
 
-        public CameraViewModel(ICameraModel cm)
-        {
-            Producer = cm.Producer;
-            Make = cm.Make;
-            ISOLimitAcceptable = cm.ISOLimitAcceptable;
-            ISOLimitGood = cm.ISOLimitGood;
-        }
+        public int ID { get; set; }
+        public string Producer { get; set; }
+        public string Make { get; set; }
+        public DateTime? BoughtOn { get; set; }
+        public string Notes { get; set; }
 
-        public DateTime? BoughtOn
-        {
-            get; set;
-        }
-
-        public int ID
-        {
-            get;
-        }
-
-        public decimal ISOLimitAcceptable
-        {
-            get; set;
-        }
-
-        public decimal ISOLimitGood
-        {
-            get; set;
-        }
+        public int NumberOfPictures => throw new NotImplementedException();
 
         public bool IsValid
         {
@@ -95,7 +83,7 @@ namespace PicDB.ViewModels
         {
             get
             {
-                if (String.IsNullOrEmpty(Producer))
+                if (Producer == null || Producer == string.Empty)
                 {
                     return false;
                 }
@@ -110,7 +98,7 @@ namespace PicDB.ViewModels
         {
             get
             {
-                if (String.IsNullOrEmpty(Make))
+                if (Make == null || Make == string.Empty)
                 {
                     return false;
                 }
@@ -136,25 +124,8 @@ namespace PicDB.ViewModels
             }
         }
 
-        public string Make
-        {
-            get; set;
-        }
-
-        public string Notes
-        {
-            get; set;
-        }
-
-        public int NumberOfPictures
-        {
-            get;
-        }
-
-        public string Producer
-        {
-            get; set;
-        }
+        public decimal ISOLimitGood { get; set; }
+        public decimal ISOLimitAcceptable { get; set; }
 
         public ISORatings TranslateISORating(decimal iso)
         {

@@ -1,19 +1,19 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.Models;
-
+using BIF.SWE2.Interfaces.ViewModels;
 
 namespace PicDB.Models
 {
-    public class CameraModel : ICameraModel
+    class CameraModel : ICameraModel
     {
+        public CameraModel() { }
 
-
-        public CameraModel()
+        public CameraModel(int ID)
         {
-            
+            this.ID = ID;
         }
 
         public CameraModel(string producer, string make)
@@ -22,103 +22,64 @@ namespace PicDB.Models
             Make = make;
         }
 
-        private DateTime? _BroughtOn;
-        public DateTime? BoughtOn
+        public CameraModel(ICameraViewModel viewModel)
         {
-            get
-            {
-                return _BroughtOn;
-            }
-
-            set
-            {
-                _BroughtOn = value;
-            }
+            ID = viewModel.ID;
+            Producer = viewModel.Producer;
+            Make = viewModel.Make;
+            BoughtOn = viewModel.BoughtOn;
+            Notes = viewModel.Notes;
+            ISOLimitGood = viewModel.ISOLimitGood;
+            ISOLimitAcceptable = viewModel.ISOLimitAcceptable;
         }
 
-        private int _ID;
-        public int ID
-        {
-            get
-            {
-                return _ID;
-            }
+        public int ID { get; set; }
 
-            set
-            {
-                _ID = value;
-            }
-        }
-
-        private decimal _ISOLimitAcceptable;
-        public decimal ISOLimitAcceptable
-        {
-            get
-            {
-                return _ISOLimitAcceptable;
-            }
-
-            set
-            {
-                _ISOLimitAcceptable = value;
-            }
-        }
-
-        private decimal _ISOLimitGood;
-        public decimal ISOLimitGood
-        {
-            get
-            {
-                return _ISOLimitGood;
-            }
-
-            set
-            {
-                _ISOLimitGood = value;
-            }
-        }
-
-        private string _Make;
-        public string Make
-        {
-            get
-            {
-                return _Make;
-            }
-
-            set
-            {
-                _Make = value;
-            }
-        }
-
-        private string _Notes;
-        public string Notes
-        {
-            get
-            {
-                return _Notes;
-            }
-
-            set
-            {
-                _Notes = value;
-            }
-        }
-
-        private string _Producer;
+        private string _producer;
 
         public string Producer
         {
             get
             {
-                return _Producer;
-            }
+                if (!string.IsNullOrEmpty(_producer))
+                {
+                    return _producer;
+                }
 
+                return "not set";
+            }
             set
             {
-                _Producer = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _producer = value;
+                }
             }
         }
+
+        private string _make;
+        public string Make
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_make))
+                {
+                    return _make;
+                }
+
+                return "not set";
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _make = value;
+                }
+            }
+        }
+        public DateTime? BoughtOn { get; set; }
+        public string Notes { get; set; }
+        public decimal ISOLimitGood { get; set; }
+        public decimal ISOLimitAcceptable { get; set; }
     }
 }

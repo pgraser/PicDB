@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BIF.SWE2.Interfaces.ViewModels;
 
 namespace PicDB.Models
 {
-    public class PhotographerModel : IPhotographerModel
+    class PhotographerModel : IPhotographerModel
     {
         public PhotographerModel()
         {
-            ID = NextID++;
+
         }
 
         public PhotographerModel(int ID)
@@ -18,10 +19,57 @@ namespace PicDB.Models
             this.ID = ID;
         }
 
-        protected static int NextID = 1;
+        public PhotographerModel(IPhotographerViewModel viewModel)
+        {
+            ID = viewModel.ID;
+            FirstName = viewModel.FirstName;
+            LastName = viewModel.LastName;
+            BirthDay = viewModel.BirthDay;
+            Notes = viewModel.Notes;
+        }
         public int ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+
+        private string _firstName;
+        public string FirstName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_firstName))
+                {
+                    return _firstName;
+                }
+
+                return "not set";
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(_firstName))
+                {
+                    _firstName = value;
+                }
+            }
+        }
+
+        private string _lastName;
+        public string LastName
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_lastName))
+                {
+                    return _lastName;
+                }
+
+                return "not set";
+            }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _lastName = value;
+                }
+            }
+        }
         public DateTime? BirthDay { get; set; }
         public string Notes { get; set; }
     }

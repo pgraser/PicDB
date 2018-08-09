@@ -1,27 +1,15 @@
-﻿using System;
+﻿using BIF.SWE2.Interfaces.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BIF.SWE2.Interfaces.ViewModels;
 
 namespace PicDB.ViewModels
 {
-    public class CameraListViewModel : ICameraListViewModel
+    class CameraListViewModel : ICameraListViewModel
     {
-        public ICameraViewModel CurrentCamera
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public IEnumerable<ICameraViewModel> List => throw new NotImplementedException();
 
-        public IEnumerable<ICameraViewModel> List
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public ICameraViewModel CurrentCamera => throw new NotImplementedException();
     }
 }

@@ -32,7 +32,7 @@ namespace Uebungen
         {
             BusinessLayer bl = new BusinessLayer();
             bl.Sync();
-            return bl.GetMockDAL();
+            return new DataAccessLayer();
         }
 
         public ISearchViewModel GetSearchViewModel()

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PicDB.Models
 {
-    public class SearchViewModel : MainWindowViewModel, ISearchViewModel
+    class SearchViewModel : ISearchViewModel
     {
         public string SearchText { get; set; }
 
@@ -22,6 +22,6 @@ namespace PicDB.Models
             }
         }
 
-        public int ResultCount { get { throw new NotImplementedException(); } }
+        public int ResultCount { get; set; }
     }
 }
