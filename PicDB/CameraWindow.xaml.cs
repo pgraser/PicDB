@@ -30,7 +30,8 @@ namespace PicDB
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            
+            var CameraAddWindow = new CameraAddWindow(_controller);
+            CameraAddWindow.Show();
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)

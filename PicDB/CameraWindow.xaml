@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PicDB"
         mc:Ignorable="d"
-        Title="CameraWindow" Height="450" Width="500">
+        Title="CameraWindow" Height="300" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -35,7 +35,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Grid.Row="1" HorizontalAlignment="Center" Width="90" Click="BtnAdd_Click" Margin="5">ADD</Button>
+            <Button Grid.Row="1" HorizontalAlignment="Center" Width="90" Click="BtnAdd_Click" Margin="10">Add</Button>
         </Grid>
         
 
@@ -59,12 +59,12 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Producer</Label>
-                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Make</Label>
-                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">BoughtOn</Label>
-                <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Notes</Label>
-                <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">ISOLimitGood</Label>
-                <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">ISOLimitAcceptable</Label>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center">Producer</Label>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center">Make</Label>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center">BoughtOn</Label>
+                <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center">Notes</Label>
+                <Label Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center">ISOLimitGood</Label>
+                <Label Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="15 0 0 0" VerticalAlignment="Center">ISOLimitAcceptable</Label>
                 <TextBox Name="Producer"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></TextBox>
                 <TextBox Name="Make" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></TextBox>
                 <TextBox Name="BoughtOn" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"></TextBox>
@@ -79,8 +79,8 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" HorizontalAlignment="Center" Width="120" Click="BtnEdit_Click" Margin="5">EDIT</Button>
-                <Button Grid.Column="1" HorizontalAlignment="Center" Width="120" Click="BtnDelete_Click" Margin="5">DELETE</Button>
+                <Button Grid.Column="0" HorizontalAlignment="Center" Width="90" Click="BtnEdit_Click" Margin="10">Save changes</Button>
+                <Button Grid.Column="1" HorizontalAlignment="Center" Width="90" Click="BtnDelete_Click" Margin="10">Delete</Button>
             </Grid>
             
         </Grid>

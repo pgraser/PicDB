@@ -76,6 +76,10 @@ namespace PicDB.Models
             SaveCurrentPicture();
         }
 
+        internal void SaveCameraAndUpdateList(ICameraModel camera)
+        {
+            _businessLayer.SaveCamera(camera);
+        }
 
 
         //public ObservableCollection<> CreatePictureViewModelCollection()

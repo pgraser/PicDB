@@ -153,5 +153,10 @@ namespace PicDB
         {
 
         }
+
+        public void SaveCamera(ICameraModel camera)
+        {
+            //DataAccessLayer.SaveCamera(camera);
+        }
     }
 }
