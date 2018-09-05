@@ -9,7 +9,7 @@ using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
-    class MainWindowViewModel : ViewModelNotifier, IMainWindowViewModel
+    public class MainWindowViewModel : ViewModelNotifier, IMainWindowViewModel
     {
         private readonly BusinessLayer _businessLayer = new BusinessLayer();
 

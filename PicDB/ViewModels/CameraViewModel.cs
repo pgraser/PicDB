@@ -19,6 +19,7 @@ namespace PicDB.ViewModels
             ID = model.ID;
             Producer = model.Producer;
             Make = model.Make;
+            BoughtOn = model.BoughtOn;
             ISOLimitGood = model.ISOLimitGood;
             ISOLimitAcceptable = model.ISOLimitAcceptable;
             Notes = model.Notes;

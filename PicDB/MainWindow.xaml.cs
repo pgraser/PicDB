@@ -19,6 +19,8 @@ using System.Windows.Forms;
 using PicDB.ViewModels;
 using MessageBox = System.Windows.MessageBox;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace PicDB
 {
     /// <summary>
@@ -28,8 +30,12 @@ namespace PicDB
     {
         private MainWindowViewModel _controller;
 
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public MainWindow()
         {
+            log.Fatal("TestTestTest");
             _controller = new MainWindowViewModel();
             InitializeComponent();
             this.DataContext = _controller;
@@ -98,7 +104,20 @@ namespace PicDB
                 ((PictureListViewModel)_controller.List).SyncAndUpdatePictureList();
             }
         }
-        
+
+        private void MenuEditCameras_Click(object sender, RoutedEventArgs e)
+        {
+            var cameraWindow = new CameraWindow(_controller);
+
+            cameraWindow.Show();
+        }
+
+        private void MenuEditPhotographers_Click(object sender, RoutedEventArgs e)
+        {
+            var photographerWindow = new PhotographerWindow(_controller);
+
+            photographerWindow.Show();
+        }
 
         /// <summary>
         /// TO MAYBO DO
