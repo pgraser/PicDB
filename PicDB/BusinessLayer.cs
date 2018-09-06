@@ -173,5 +173,10 @@ namespace PicDB
         {
             ((DataAccessLayer)DataAccessLayer).UpdateCamera(cameraModel);
         }
+
+        public void UpdatePhotographer(PhotographerModel photographerModel)
+        {
+            ((DataAccessLayer)DataAccessLayer).UpdatePhotographer(photographerModel);
+        }
     }
 }

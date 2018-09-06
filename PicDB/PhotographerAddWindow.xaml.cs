@@ -29,7 +29,7 @@ namespace PicDB
 
         private void SaveBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            var photographer = new PhotographerModel();
+            var photographer = new PhotographerViewModel();
             var birthday = DateTime.Now;
 
             if (DateTime.TryParse(Birthday.Text, out birthday)) photographer.BirthDay = birthday;
