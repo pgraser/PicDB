@@ -156,7 +156,17 @@ namespace PicDB
 
         public void SaveCamera(ICameraModel camera)
         {
-            //DataAccessLayer.SaveCamera(camera);
+            ((DataAccessLayer)DataAccessLayer).SaveCamera(camera);
+        }
+
+        public void DeleteCamera(int ID)
+        {
+            ((DataAccessLayer) DataAccessLayer).DeleteCamera(ID);
+        }
+
+        public void UpdateCamera(ICameraModel cameraModel)
+        {
+            ((DataAccessLayer)DataAccessLayer).UpdateCamera(cameraModel);
         }
     }
 }

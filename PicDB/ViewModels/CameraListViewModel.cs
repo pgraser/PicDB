@@ -9,7 +9,16 @@ namespace PicDB.ViewModels
 {
     class CameraListViewModel : ViewModelNotifier, ICameraListViewModel
     {
-        public IEnumerable<ICameraViewModel> List { get; }
+        private IEnumerable<ICameraViewModel> _list;
+        public IEnumerable<ICameraViewModel> List
+        {
+            get => _list;
+            private set
+            {
+                _list = value;
+                NotifyPropertyChanged("List");
+            }
+        }
 
         public ICameraViewModel CurrentCamera
         {
@@ -23,6 +32,11 @@ namespace PicDB.ViewModels
 
         public CameraListViewModel()
         {
+            SynchronizeCameras();
+        }
+
+        public void SynchronizeCameras()
+        {
             var bl = new BusinessLayer();
             var cameraModels = bl.GetCameras();
             var cameraViewModels = new ObservableCollection<ICameraViewModel>();
@@ -33,5 +47,6 @@ namespace PicDB.ViewModels
 
             List = cameraViewModels;
         }
+
     }
 }

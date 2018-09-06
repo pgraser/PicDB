@@ -556,5 +556,101 @@ namespace PicDB
                 return pCount == 1;
             }
         }
+
+        public void UpdateCamera(ICameraModel cameraModel)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var cmd = new SqlCommand("UPDATE dbo.CameraModel " +
+                                         "SET Producer = @producer, Make = @make, BoughtOn = @boughton, Notes = @notes, ISOLimitGood = @isolimitgood, ISOLimitAcceptable = @isolimitacceptable " +
+                                         "WHERE ID = @id;", connection);
+
+                var ipParam = new SqlParameter("@id", SqlDbType.Int) { Value = cameraModel.ID };
+                var producerParam = new SqlParameter("@producer", SqlDbType.Text, 255) { Value = cameraModel.Producer };
+                var makeParam = new SqlParameter("@make", SqlDbType.Text, 255) { Value = cameraModel.Make };
+                var boughtonParam = new SqlParameter("@boughton", SqlDbType.Date) { Value = cameraModel.BoughtOn };
+                var notesParam = new SqlParameter("@notes", SqlDbType.Text, 255) { Value = cameraModel.Notes };
+                var isolimitgoodParam = new SqlParameter("@isolimitgood", SqlDbType.Decimal) { Value = cameraModel.ISOLimitGood };
+                isolimitgoodParam.Precision = 18;
+                var isolimitacceptabeParam = new SqlParameter("@isolimitacceptable", SqlDbType.Decimal) { Value = cameraModel.ISOLimitGood };
+                isolimitacceptabeParam.Precision = 18;
+
+                cmd.Parameters.Add(ipParam);
+                cmd.Parameters.Add(producerParam);
+                cmd.Parameters.Add(makeParam);
+                cmd.Parameters.Add(boughtonParam);
+                cmd.Parameters.Add(notesParam);
+                cmd.Parameters.Add(isolimitgoodParam);
+                cmd.Parameters.Add(isolimitacceptabeParam);
+
+                cmd.Prepare();
+                cmd.ExecuteScalar();
+
+                connection.Close();
+            }
+        }
+
+        public void DeleteCamera(int ID)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var cmd = new SqlCommand("DELETE FROM dbo.CameraModel " +
+                                         "WHERE ID = @id;", connection);
+
+                var idParam = new SqlParameter("@id", SqlDbType.Int) { Value = ID };
+
+                cmd.Parameters.Add(idParam);
+
+                cmd.Prepare();
+                cmd.ExecuteScalar();
+
+                connection.Close();
+            }
+        }
+
+        public void SaveCamera(ICameraModel camera)
+        {
+            //TODO: Save Camera to database
+            var query = "INSERT INTO dbo.CameraModel(Producer, Make, BoughtOn, Notes, ISOLimitAcceptable, ISOLimitGood)"
+                        + "VALUES(@producer, @make, @boughtOn, @notes, @isoAcc, @isoGood);";
+
+            // Create and prepare an SQL statement.
+            var producerParam =
+                new SqlParameter("@producer", SqlDbType.Text, 255) { Value = camera.Producer };
+            var makeParam =
+                new SqlParameter("@make", SqlDbType.Text, 255) { Value = camera.Make };
+            var boughtOnParam =
+                new SqlParameter("@boughtOn", SqlDbType.DateTime) { Value = camera.BoughtOn };
+            var notesParam = new SqlParameter("@notes", SqlDbType.Text, 255) { Value = camera.Notes };
+            var isoAccLimit = new SqlParameter("@isoAcc", SqlDbType.Decimal) { Value = camera.ISOLimitAcceptable, Precision = 18, Scale = 0 };
+            var isoGood = new SqlParameter("@isoGood", SqlDbType.Decimal) { Value = camera.ISOLimitGood, Precision = 18, Scale = 0 };
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand(null, connection)
+                {
+                    CommandText = query
+                };
+
+                command.Parameters.Add(producerParam);
+                command.Parameters.Add(makeParam);
+                command.Parameters.Add(boughtOnParam);
+                command.Parameters.Add(notesParam);
+                command.Parameters.Add(isoAccLimit);
+                command.Parameters.Add(isoGood);
+
+                // Call Prepare after setting the Commandtext and Parameters.
+                command.Prepare();
+
+                // Change parameter values and call ExecuteNonQuery.
+                command.ExecuteScalar();
+                connection.Close();
+            }
+        }
     }
 }
