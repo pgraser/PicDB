@@ -87,6 +87,11 @@ namespace PicDB
             }
         }
 
+        internal void SavePhotographer(PhotographerModel photographer)
+        {
+            ((DataAccessLayer)DataAccessLayer).SavePhotographer(photographer);
+        }
+
         public IEnumerable<IPhotographerModel> GetPhotographers()
         {
             return DataAccessLayer.GetPhotographers();

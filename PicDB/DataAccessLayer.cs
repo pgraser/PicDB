@@ -574,7 +574,7 @@ namespace PicDB
                 var notesParam = new SqlParameter("@notes", SqlDbType.Text, 255) { Value = cameraModel.Notes };
                 var isolimitgoodParam = new SqlParameter("@isolimitgood", SqlDbType.Decimal) { Value = cameraModel.ISOLimitGood };
                 isolimitgoodParam.Precision = 18;
-                var isolimitacceptabeParam = new SqlParameter("@isolimitacceptable", SqlDbType.Decimal) { Value = cameraModel.ISOLimitGood };
+                var isolimitacceptabeParam = new SqlParameter("@isolimitacceptable", SqlDbType.Decimal) { Value = cameraModel.ISOLimitAcceptable };
                 isolimitacceptabeParam.Precision = 18;
 
                 cmd.Parameters.Add(ipParam);
@@ -643,6 +643,42 @@ namespace PicDB
                 command.Parameters.Add(notesParam);
                 command.Parameters.Add(isoAccLimit);
                 command.Parameters.Add(isoGood);
+
+                // Call Prepare after setting the Commandtext and Parameters.
+                command.Prepare();
+
+                // Change parameter values and call ExecuteNonQuery.
+                command.ExecuteScalar();
+                connection.Close();
+            }
+        }
+        public void SavePhotographer(PhotographerModel photographer)
+        {
+            //TODO: Save Photographer to database
+            var query = "INSERT INTO dbo.PhotographerModel(FirstName, LastName, Birthday, Notes)"
+                        + "VALUES(@firstname, @lastname, @birthday, @notes);";
+
+            // Create and prepare an SQL statement.
+            var producerParam =
+                new SqlParameter("@firstname", SqlDbType.Text, 255) { Value = photographer.FirstName };
+            var makeParam =
+                new SqlParameter("@lastname", SqlDbType.Text, 255) { Value = photographer.LastName };
+            var boughtOnParam =
+                new SqlParameter("@birthday", SqlDbType.DateTime) { Value = photographer.BirthDay };
+            var notesParam = new SqlParameter("@notes", SqlDbType.Text, 255) { Value = photographer.Notes };
+
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var command = new SqlCommand(null, connection)
+                {
+                    CommandText = query
+                };
+
+                command.Parameters.Add(producerParam);
+                command.Parameters.Add(makeParam);
+                command.Parameters.Add(boughtOnParam);
+                command.Parameters.Add(notesParam);
 
                 // Call Prepare after setting the Commandtext and Parameters.
                 command.Prepare();

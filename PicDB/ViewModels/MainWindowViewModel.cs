@@ -50,6 +50,13 @@ namespace PicDB.Models
             }
         }
 
+        internal void SavePhotographer(PhotographerModel photographer)
+        {
+            _businessLayer.SavePhotographer(photographer);
+            var photographerlist = (PhotographerListViewModel)PhotographerList;
+            photographerlist.SynchronizePhotographers();
+        }
+
         public IPictureListViewModel List { get; set; } = new PictureListViewModel();
 
         public ISearchViewModel Search { get; set; } = new SearchViewModel();
