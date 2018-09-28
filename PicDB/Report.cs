@@ -91,14 +91,11 @@ namespace PicDB
             gfx.DrawString("ISORating: " + pvm.EXIF.ISORating, font, XBrushes.Black,
                 new XRect(10, 550, page.Width, 270),
                 XStringFormats.TopLeft);
-            gfx.DrawString("ISORatingResource: " + pvm.EXIF.ISORatingResource, font, XBrushes.Black,
+            gfx.DrawString("ISOValue: " + pvm.EXIF.ISOValue, font, XBrushes.Black,
                 new XRect(10, 560, page.Width, 270),
                 XStringFormats.TopLeft);
-            gfx.DrawString("ISOValue: " + pvm.EXIF.ISOValue, font, XBrushes.Black,
-                new XRect(10, 570, page.Width, 270),
-                XStringFormats.TopLeft);
             gfx.DrawString("Make: " + pvm.EXIF.Make, font, XBrushes.Black,
-                new XRect(10, 580, page.Width, 270),
+                new XRect(10, 570, page.Width, 270),
                 XStringFormats.TopLeft);
 
             document.Save(GlobalInformation.Path + "\\Reports\\report" + pvm.ID +".pdf");

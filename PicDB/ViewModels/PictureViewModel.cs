@@ -21,6 +21,7 @@ namespace PicDB.Models
                 EXIF = new EXIFViewModel(model.EXIF);
                 Photographer = new PhotographerViewModel(((PictureModel)model).Photographer);
                 Camera = new CameraViewModel(model.Camera);
+                EXIF.Camera = Camera;
             }
 
             if (model != null)

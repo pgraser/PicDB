@@ -107,7 +107,6 @@ namespace PicDB
             if (photogrID != -1) picture.Photographer = GetPhotographer(photogrID);
             else picture.Photographer = new PhotographerModel();
 
-
             return picture;
         }
 
@@ -226,18 +225,22 @@ namespace PicDB
                     //Insert PictureModel
                     var command = new SqlCommand(null, connection)
                     {
-                        CommandText = "INSERT INTO dbo.PictureModel(FileName, fk_IPTC, fk_EXIF)"
-                                      + "VALUES(@filename, @fkiptc, @fkexif);"
+                        CommandText = "INSERT INTO dbo.PictureModel(FileName, fk_IPTC, fk_EXIF, fk_Camera, fk_Photographer)"
+                                      + "VALUES(@filename, @fkiptc, @fkexif, @fkcamera, @fkphotographer);"
                     };
 
 
                     var filenameParam = new SqlParameter("@filename", SqlDbType.Text, 255) { Value = picture.FileName };
                     var itpcParam = new SqlParameter("@fkiptc", SqlDbType.Int) { Value = itpc_fk };
                     var exifParam = new SqlParameter("@fkexif", SqlDbType.Int) { Value = exif_fk };
+                    var cameraParam = new SqlParameter("@fkcamera", SqlDbType.Int) { Value = 8 };
+                    var photographerParam = new SqlParameter("@fkphotographer", SqlDbType.Int) { Value = 11 };
 
                     command.Parameters.Add(filenameParam);
                     command.Parameters.Add(itpcParam);
                     command.Parameters.Add(exifParam);
+                    command.Parameters.Add(cameraParam);
+                    command.Parameters.Add(photographerParam);
 
                     command.Prepare();
 
@@ -721,7 +724,7 @@ namespace PicDB
         public Dictionary<string, int> GetTagCount()
         {
             List<string> tagList = new List<string>();
-            var queryString = "Select Keywords From IPTCModel";
+            var queryString = "select Keywords from PictureModel left join IPTCModel on PictureModel.fk_IPTC = IPTCModel.ID; ";
 
             using (var connection = new SqlConnection(ConnectionString))
             using (var command = connection.CreateCommand())
