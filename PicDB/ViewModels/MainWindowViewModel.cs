@@ -119,5 +119,10 @@ namespace PicDB.Models
             _businessLayer.UpdatePhotographer(new PhotographerModel(photographerViewModel));
             ((PhotographerListViewModel)PhotographerList).SynchronizePhotographers();
         }
+
+        public Dictionary<string, int> GetTagCount()
+        {
+            return _businessLayer.GetTagCount();
+        }
     }
 }

@@ -178,5 +178,10 @@ namespace PicDB
         {
             ((DataAccessLayer)DataAccessLayer).UpdatePhotographer(photographerModel);
         }
+
+        public Dictionary<string, int> GetTagCount()
+        {
+            return((DataAccessLayer) DataAccessLayer).GetTagCount();
+        }
     }
 }

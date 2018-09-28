@@ -14,12 +14,13 @@ namespace PicDB
         public static void ReadConfigFile()
         {
             var dict = new Dictionary<string, string>();
-            var text = System.IO.File.ReadAllLines("config.txt"); //Standart Pfad zum .exe Verzeichnis vom Programm
+            //var text = System.IO.File.ReadAllLines("config.txt"); //Ohne Unit Tests
+            var text = System.IO.File.ReadAllLines(@"C:\Users\Patrick\SWE2-CS\deploy\config.txt");
             foreach (var s in text)
             {
                 var splitted = s.Split(',');
                 if (splitted.Length == 2) dict.Add(splitted[0], splitted[1]);
-                else throw new ArgumentNullException("Config-File corrupted!");
+                else throw new ArgumentNullException("Configfile corrupted!");
             }
 
             ConnectionString = dict["connectionString"];

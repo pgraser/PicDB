@@ -25,18 +25,13 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="_File">
-                <MenuItem Header="_FileOption"></MenuItem>
-                <MenuItem Header="_NewFileOption"></MenuItem>
+                <MenuItem Header="_Export Tag to PDF" Name="MenuFileExportPdf" Click="MenuFileExportPdf_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="_EditOption"></MenuItem>
-                <MenuItem Header="_NewEditOption"></MenuItem>
                 <MenuItem Header="_Edit Cameras" Name="MenuEditCameras" Click="MenuEditCameras_Click"></MenuItem>
                 <MenuItem Header="_Edit Photographers" Name="MenuEditPhotographers" Click="MenuEditPhotographers_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Options">
-                <MenuItem Header="_Option"></MenuItem>
-                <MenuItem Header="_NewOption"></MenuItem>
                 <MenuItem Header="_Change Home Folder" Name="MenuOptionChangeHomeFolder" Click="MenuOptionChangeHomeFolder_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Help" HorizontalAlignment="Right">
@@ -164,8 +159,13 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
                             <!-- Button which trigger save function for Camera detail on Photo -->
-                            <Button Name="BtnSaveGeneralInfo" Click="BtnSaveGeneralInfo_Click" HorizontalAlignment="Center" Width="150" Height="25">Save</Button>
+                            <Button Name="BtnSaveGeneralInfo" Grid.Column="0" Click="BtnSaveGeneralInfo_Click" HorizontalAlignment="Center" Width="150" Height="25">Save</Button>
+                            <Button Name="BtnExportPdf" Grid.Column="1" Click="BtnExportPdf_Click" HorizontalAlignment="Center" Width="150" Height="25">Export PDF</Button>
                         </Grid>
                     </Grid>
 
@@ -174,6 +174,10 @@
                 <TabItem Header="IPTC">
                     <DockPanel>
                         <Grid DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="63*"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <!-- Keywords -->
@@ -190,36 +194,36 @@
                             </Grid.RowDefinitions>
 
                             <!-- Keywords -->
-                            <StackPanel Grid.Row="0">
+                            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
                                 <Label  Content="Keywords"/>
                                 <TextBox HorizontalAlignment="Stretch" Name="UI_IPTC_Keywords" Margin="5 0 5 10" Text="{Binding CurrentPicture.IPTC.Keywords}"></TextBox>
                             </StackPanel>
 
                             <!-- ByLine -->
-                            <StackPanel Grid.Row="1">
+                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
                                 <Label  Content="ByLine"/>
                                 <TextBox HorizontalAlignment="Stretch" Name="UI_IPTC_ByLine" Margin="5 0 5 10" Text="{Binding CurrentPicture.IPTC.ByLine}"></TextBox>
                             </StackPanel>
 
                             <!-- CopyrightNotice -->
-                            <StackPanel Grid.Row="2">
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
                                 <Label  Content="Copyright notice"/>
                                 <TextBox HorizontalAlignment="Stretch" Name="UI_IPTC_CopyrightNotice" Margin="5 0 5 10" Text="{Binding CurrentPicture.IPTC.CopyrightNotice}"></TextBox>
                             </StackPanel>
 
                             <!-- Headline -->
-                            <StackPanel Grid.Row="3">
+                            <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
                                 <Label  Content="Headline"/>
                                 <TextBox HorizontalAlignment="Stretch" Name="UI_IPTC_Headline" Margin="5 0 5 10" Text="{Binding CurrentPicture.IPTC.Headline}"></TextBox>
                             </StackPanel>
 
                             <!-- Caption -->
-                            <StackPanel Grid.Row="4">
+                            <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
                                 <Label  Content="Caption"/>
                                 <TextBox HorizontalAlignment="Stretch" Name="UI_IPTC_Caption" Margin="5 0 5 10" Text="{Binding CurrentPicture.IPTC.Caption}"></TextBox>
                             </StackPanel>
 
-                            <Button Grid.Row="5" Name="BtnSaveIPTC" Click="BtnSaveIPTC_Click" HorizontalAlignment="Center" Width="90">Save</Button>
+                            <Button Grid.Row="5" Name="BtnSaveIPTC" Click="BtnSaveIPTC_Click" HorizontalAlignment="Center" Width="90" Grid.Column="1" Margin="100,0,125,0">Save</Button>
                         </Grid>
                     </DockPanel>
                 </TabItem>

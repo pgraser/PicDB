@@ -37,6 +37,7 @@ namespace PicDB
         {
             log.Fatal("TestTestTest");
             _controller = new MainWindowViewModel();
+
             InitializeComponent();
             this.DataContext = _controller;
 
@@ -64,7 +65,7 @@ namespace PicDB
             {
                 if (((PictureViewModel)PictureSelection.SelectedItem) == null)
                 {
-                    MessageBox.Show("Des is null, aide");
+                    MessageBox.Show("Picture is null");
                 }
                 else
                 {
@@ -172,6 +173,20 @@ namespace PicDB
                 Searchbar.Foreground = Brushes.DimGray;
                 Searchbar.Text = "Search picture";
             }
+        }
+
+        private void MenuFileExportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            var exportPdfWindow = new ExportPdfWindow(_controller);
+
+            exportPdfWindow.Show();
+        }
+
+        private void BtnExportPdf_Click(object sender, RoutedEventArgs e)
+        {
+            var report = new Report();
+
+            report.PdfReport((PictureViewModel)_controller.CurrentPicture);
         }
     }
 }
